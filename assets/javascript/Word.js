@@ -6,12 +6,11 @@ var Word = function(phrase) {
     // Returns a string representing the word from the Letters.
     this.toWord = () => {
         var phrase = "";
+
         for(var i = 0; i < this.phrase.length; i++) {
             phrase += this.phrase[i].toString();
 
-            if(i < this.phrase.length - 1) {
-                phrase += " ";
-            }
+            if(i < this.phrase.length - 1) phrase += " ";
         }
 
         return phrase;
@@ -24,9 +23,7 @@ var Word = function(phrase) {
 
         for(var i = 0; i < this.phrase.length; i++) {
             // Checks that the char is correct.
-            if((this.phrase[i].char.toLowerCase() == char) && this.phrase[i].guessing(char)) {
-                guessed = true;
-            }
+            if((this.phrase[i].char.toLowerCase() == char) && this.phrase[i].guessing(char)) guessed = true;
         }
 
         return guessed;
