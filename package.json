@@ -1,0 +1,23 @@
+{
+  "name": "Constructor-Hangman",
+  "version": "1.0.0",
+  "description": "A word guess game played using the CLI.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/homr0/Constructor-Hangman.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/homr0/Constructor-Hangman/issues"
+  },
+  "homepage": "https://github.com/homr0/Constructor-Hangman#readme",
+  "dependencies": {
+    "inquirer": "^6.2.1"
+  }
+}
