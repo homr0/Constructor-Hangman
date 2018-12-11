@@ -14,7 +14,7 @@ var Letter = function(char, guessed = false) {
 
     // Updates this.guessed to true if the character matches.
     this.guessing = (guess) => {
-        this.guessed = (this.char.toLowerCase() === guess.toLowerCase());
+        if(this.char.toLowerCase() == guess.toLowerCase()) { this.guessed = true; }
         return this.guessed;
     }
 }

@@ -21,16 +21,10 @@ var Word = function(phrase) {
     // Returns true if the letter is in the word.
     this.guess = (char) => {
         var guessed = false;
-        var str = this.toWord();
-
-        // If the letter already exists in the word, then don't run the function
-        if(str.indexOf(char) >= 0) {
-            return true;
-        }
 
         for(var i = 0; i < this.phrase.length; i++) {
-            // Updates the letter if it has been guessed.
-            if(this.phrase[i].guessing(char)) {
+            // Checks that the char is correct.
+            if((this.phrase[i].char.toLowerCase() == char) && this.phrase[i].guessing(char)) {
                 guessed = true;
             }
         }

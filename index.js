@@ -46,10 +46,13 @@ function gameAnswer(arr) {
         }
     }
 
-    return new Word(puzzle);
-}
+    game = new Word(puzzle);
 
-console.log(gameAnswer(movies).toWord());
+    // Shows the puzzle.
+    console.log(game.toWord());
+
+    return;
+}
 
 var play = () => {
     inquirer.prompt([
@@ -58,76 +61,74 @@ var play = () => {
             message: "Pick a letter:",
             validate: (input) => {
                 return new Promise(function(resolve, reject) {
-                    if(input[0].match(/[a-z]/i)) {
+                    if((input[0].match(/[a-z]/i)) && (attempts.indexOf(input[0]) < 0)) {
                         resolve(true);
+                    } else if(attempts.indexOf(input[0].toLowerCase()) >= 0) {
+                        reject("You already tried this letter.")
                     } else {
-                        reject("This is not a letter");
+                        reject("This is not a letter.");
                     }
                 });
             },
             name: "guess"
         }
     ]).then((inquiry) => {
-        var letter = inquiry.guess;
+        var letter = inquiry.guess.toLowerCase();
 
-        // Checks if the letter has already been attempted.
-        if(attempts.indexOf(letter) < 0) {
-            var progress = game.toWord();
+        attempts.push(letter);
+        var trying = game.guess(letter);
+        var progress = game.toWord();
 
-            // If the guess is wrong, then subtract from the guesses left.
-            if(!(game.guess(letter))) {
-                guesses--;
-                console.log("---INCORRECT!---");
-                console.log(game.toWord());
-            } else {
-                console.log("----CORRECT!----");
-                console.log(game.toWord());
-            }
 
-            // Displays the word.
-            // console.log(game.toWord());
+        // If the guess is wrong, then subtract from the guesses left.
+        if(!trying) {
+            guesses--;
+            console.log("---INCORRECT!---");
+            console.log("You have " + guesses + " left.");
+        } else {
+            console.log("----CORRECT!----");
+        }
 
-            // Check if the game has been won or lost.
-            if(progress.indexOf("_") < 0) {
-                // If there aren't any more "_", the player wins.
-                console.log("You got the word right!");
-                reset();
-            } else if(guesses <= 0) {
-                console.log("You lost.");
-                reset();
-            } else {
-                play();
-            }
+        // Displays the word.
+        console.log(progress);
+
+        // Check if the game has been won or lost.
+        if(progress.indexOf("_") < 0) {
+            // If there aren't any more "_", the player wins.
+            console.log("You got the word right!");
+            reset();
+        } else if(guesses <= 0) {
+            console.log("You lost.");
+            reset();
+        } else {
+            play();
         }
     });
 };
-
-var setup = () => {
-    // Gets a new puzzle to solve.
-    game = gameAnswer(movies);
-    guesses = 9;
-
-    // Shows the puzzle.
-    game.toWord();
-
-    // Begins the game.
-    play();
-}
 
 var reset = () => {
     inquirer.prompt([
         {
             type: "confirm",
-            message: "Would you like to continue? ",
+            message: "Would you like to continue?",
             name: "restart"
         }
     ]).then((inquiry) => {
         if(inquiry.restart) {
-            setup();
+            // Gets a new puzzle to solve.
+            gameAnswer(movies);
+            guesses = 9;
+            attempts = [];
+
+            // Shows the puzzle.
+            game.toWord();
+
+            play();
         }
 
         return;
     });
 }
 
-setup();
+gameAnswer(movies);
+play();
