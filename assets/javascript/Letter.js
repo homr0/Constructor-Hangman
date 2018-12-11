@@ -1,4 +1,4 @@
-var Letter = (char, guessed = false) => {
+var Letter = function(char, guessed = false) {
     // Properties
     this.char = char,       // Underlying character
     this.guessed = guessed, // Boolean if letter has been guessed.
@@ -15,6 +15,7 @@ var Letter = (char, guessed = false) => {
     // Updates this.guessed to true if the character matches.
     this.guessing = (guess) => {
         this.guessed = (this.char === guess);
+        return this.guessed;
     }
 }
 
