@@ -1,4 +1,4 @@
-var Letter = (char, guessed) => {
+var Letter = (char, guessed = false) => {
     // Properties
     this.char = char,       // Underlying character
     this.guessed = guessed, // Boolean if letter has been guessed.
