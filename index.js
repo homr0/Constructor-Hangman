@@ -22,7 +22,14 @@ var movies = [
     "Justice League",
     "Wonder Woman",
     "Man of Steel",
-    "Deadpool"
+    "Deadpool",
+    "Spider-Man Homecoming",
+    "Aquaman",
+    "Thor",
+    "Hot Fuzz",
+    "Shaun of the Dead",
+    "X-Men Days of Future Past",
+    "Game Night"
 ];
 
 var game;
@@ -37,11 +44,10 @@ function gameAnswer(arr) {
 
     // Sets up the puzzle.
     for(var i = 0; i < answer.length; i++) {
-        // Checks if the character is a letter.
+        // Checks if the character is a letter, otherwise reveals it.
         if(answer[i].toLowerCase() != answer[i].toUpperCase()) {
             puzzle.push(new Letter(answer[i]));
         } else {
-            // If the character isn't a letter, then just reveal it.
             puzzle.push(new Letter(answer[i], true));
         }
     }
@@ -50,8 +56,6 @@ function gameAnswer(arr) {
 
     // Shows the puzzle.
     console.log(game.toWord());
-
-    return;
 }
 
 var play = () => {
@@ -61,10 +65,13 @@ var play = () => {
             message: "Pick a letter:",
             validate: (input) => {
                 return new Promise(function(resolve, reject) {
-                    if((input[0].match(/[a-z]/i)) && (attempts.indexOf(input[0]) < 0)) {
+                    if((input[0].match(/[a-z]/i)) && (attempts.indexOf(input[0]) < 0) &&
+                    (input.length == 1)) {
                         resolve(true);
                     } else if(attempts.indexOf(input[0].toLowerCase()) >= 0) {
-                        reject("You already tried this letter.")
+                        reject("You already tried this letter.");
+                    } else if(input.length > 1) {
+                        reject("Please put only one letter.");
                     } else {
                         reject("This is not a letter.");
                     }
