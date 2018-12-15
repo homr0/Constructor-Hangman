@@ -8,7 +8,7 @@ var Word = function(phrase) {
         var phrase = "";
 
         for(var i = 0; i < this.phrase.length; i++) {
-            phrase += this.phrase[i].toString();
+            phrase += this.phrase[i];
 
             if(i < this.phrase.length - 1) phrase += " ";
         }
