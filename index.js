@@ -1,5 +1,6 @@
 // Requirements
 var inquirer = require("inquirer");
+var colors = require("colors");
 
 var Word = require("./assets/javascript/Word");
 var Letter = require("./assets/javascript/Letter");
@@ -68,12 +69,12 @@ var play = () => {
                     if((input[0].match(/[a-z]/i)) && (attempts.indexOf(input[0]) < 0) &&
                     (input.length == 1)) {
                         resolve(true);
-                    } else if(attempts.indexOf(input[0].toLowerCase()) >= 0) {
-                        reject("You already tried this letter.");
                     } else if(input.length > 1) {
-                        reject("Please put only one letter.");
+                        reject("Please put only one letter.".red);
+                    } else if(attempts.indexOf(input[0].toLowerCase()) >= 0) {
+                        reject("You already tried this letter.".red);
                     } else {
-                        reject("This is not a letter.");
+                        reject("This is not a letter.".red);
                     }
                 });
             },
@@ -90,10 +91,10 @@ var play = () => {
         // If the guess is wrong, then subtract from the guesses left.
         if(!trying) {
             guesses--;
-            console.log("---INCORRECT!---");
+            console.log("---INCORRECT!---".red);
             console.log("You have " + guesses + " left.");
         } else {
-            console.log("----CORRECT!----");
+            console.log("----CORRECT!----".green);
         }
 
         // Displays the word.
@@ -102,10 +103,10 @@ var play = () => {
         // Check if the game has been won or lost.
         if(progress.indexOf("_") < 0) {
             // If there aren't any more "_", the player wins.
-            console.log("You got the word right!");
+            console.log("You got the word right!".yellow);
             reset();
         } else if(guesses <= 0) {
-            console.log("You lost.");
+            console.log("You lost.".red);
             reset();
         } else {
             play();
