@@ -1,6 +1,7 @@
 // Requirements
 var inquirer = require("inquirer");
 var colors = require("colors");
+var boxen = require("boxen");
 
 var Word = require("./assets/javascript/Word");
 var Letter = require("./assets/javascript/Letter");
@@ -56,14 +57,14 @@ function gameAnswer(arr) {
     game = new Word(puzzle);
 
     // Shows the puzzle.
-    console.log(game.toWord());
+    console.log(game.toWord().cyan);
 }
 
 var play = () => {
     inquirer.prompt([
         {
             type: "input",
-            message: "Pick a letter:",
+            message: "Pick a letter:".yellow,
             validate: (input) => {
                 return new Promise(function(resolve, reject) {
                     if((input[0].match(/[a-z]/i)) && (attempts.indexOf(input[0]) < 0) &&
@@ -92,13 +93,19 @@ var play = () => {
         if(!trying) {
             guesses--;
             console.log("---INCORRECT!---".red);
-            console.log("You have " + guesses + " left.");
+            console.log("You have " + guesses + " guesses left.");
         } else {
             console.log("----CORRECT!----".green);
         }
 
+        // Displays the attemps
+        console.log(boxen("Your guessed letters:\n".yellow + attempts.join(", ").toUpperCase().cyan, {
+            borderStyle: "round",
+            borderColor: "magenta"
+        }));
+
         // Displays the word.
-        console.log(progress);
+        console.log(progress.cyan);
 
         // Check if the game has been won or lost.
         if(progress.indexOf("_") < 0) {
@@ -118,7 +125,7 @@ var reset = () => {
     inquirer.prompt([
         {
             type: "confirm",
-            message: "Would you like to continue?",
+            message: "Would you like to continue?".yellow,
             name: "restart"
         }
     ]).then((inquiry) => {
@@ -129,7 +136,7 @@ var reset = () => {
             attempts = [];
 
             // Shows the puzzle.
-            game.toWord();
+            game.toWord().cyan;
 
             play();
         }
