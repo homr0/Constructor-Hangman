@@ -4,9 +4,7 @@ A word guess game played using the CLI.
 
 ## Instructions
 
-![Gameplay](assets/images/game.gif)
-
-1. Start the game with `node index.js`.
+1. Start the game with the command `node index.js`.
   ![Starting the game](assets/images/game-1.PNG)
 2. When the game starts up, type a letter and press `Enter`.
   ![Picking a letter](assets/images/game-2.PNG)
